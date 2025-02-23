@@ -39,7 +39,7 @@ class ConfigApp:
         )
 
     def show_config(self) -> None:
-        typer.echo(self.config_cls.load())
+        typer.echo(self.config_cls.config_path.read_text())
 
     def init(self) -> None:
         """Interactively prompt for every field in the config.
