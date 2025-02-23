@@ -37,9 +37,5 @@ def hello() -> None:
     typer.echo(f"Timeout: {config.timeout} seconds")
 
 
-def main() -> None:
-    config_app()
-
-
 if __name__ == "__main__":
-    main()
+    config_app()
