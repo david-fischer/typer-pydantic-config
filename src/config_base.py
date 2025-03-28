@@ -12,7 +12,11 @@ class ConfigBase(BaseModel):
 
     @classmethod
     def config_path(cls) -> Path:
-        return user_config_path(appname=cls.app_name, version=cls.app_version)
+        return user_config_path(appname=cls.app_name, version=cls.app_version) / "config.toml"
+
+    @classmethod
+    def exists(cls) -> bool:
+        return cls.config_path().exists()
 
     @classmethod
     def load(cls) -> Self:
@@ -22,6 +26,7 @@ class ConfigBase(BaseModel):
 
     def save(self) -> None:
         """Persist the config to TOML on disk."""
+        self.config_path().parent.mkdir(parents=True, exist_ok=True)
         with self.config_path().open("w", encoding="utf-8") as f:
             toml.dump(self.model_dump(), f)
 

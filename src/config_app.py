@@ -39,7 +39,14 @@ class ConfigApp:
         )
 
     def show_config(self) -> None:
-        typer.echo(self.config_cls.config_path().read_text())
+        """Print content of config file."""
+        path = self.config_cls.config_path()
+        typer.echo(f"# {path}")
+        typer.echo(path.read_text())
+
+    def show_path(self) -> None:
+        """Print config path."""
+        typer.echo(f"# {self.config_cls.config_path()}")
 
     def init(self) -> None:
         """Interactively prompt for every field in the config.
@@ -48,6 +55,8 @@ class ConfigApp:
         -------
             typer.Exit: If pydantic validation fails.
         """
+        if self.config_cls.config_path().exists():
+            typer.confirm(f"Config ({self.config_cls.config_path()}) already exists. Overwrite?", abort=True)
 
         # We'll collect the user inputs in a dict
         input_data = {}
@@ -92,6 +101,7 @@ class ConfigApp:
         config_click_group.add_command(name="set", cmd=self.create_set_command())
         config_click_group.command("init")(self.init)
         config_click_group.command("show")(self.show_config)
+        config_click_group.command("path")(self.show_path)
         self._typer_click_object.add_command(config_click_group, "config")
 
     def _init_callback(self, app: typer.Typer) -> None:
