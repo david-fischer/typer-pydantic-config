@@ -1,9 +1,11 @@
 import datetime
 import types
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any, Union, get_args, get_origin
 
 import click
+from pydantic import BaseModel
 
 ANNOTATION_MAP: dict[type, click.ParamType] = {
     int: click.INT,
@@ -34,3 +36,31 @@ def annotation_to_click_type(
             return annotation_to_click_type(non_none_args[0])
         return None
     return ANNOTATION_MAP.get(annotation)
+
+
+def update_pydantic_model_command[PydanticModel: BaseModel](
+    pydantic_model: type[PydanticModel],
+    callback: Callable[[...], ...],
+) -> click.Command:
+    """Dynamically create a 'set' command with an option for each field in the model.
+
+    The user can do:
+      <myapp> config set --username new_user --api-key SECRET --timeout 60
+    """
+    params = [
+        click.Option(
+            param_decls=[f"--{field_name.replace('_', '-')}"],
+            help=(field_model.description or field_name),
+            default=None,
+            required=False,
+            show_default=False,
+            type=annotation_to_click_type(field_model.annotation),
+        )
+        for field_name, field_model in pydantic_model.model_fields.items()
+    ]
+    return click.core.Command(
+        name="set",
+        help="Set one or more config fields via flags.",
+        callback=callback,
+        params=params,
+    )

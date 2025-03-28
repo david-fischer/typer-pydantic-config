@@ -1,17 +1,13 @@
 import datetime
 from pathlib import Path
-from typing import ClassVar
 
 import typer
-from pydantic import Field
-from typer import Typer
+from pydantic import BaseModel, Field
 
-from config_app import ConfigApp
-from config_base import ConfigBase
+from typer_pydantic_config import get_config, start_config_app
 
 
-class MyConfig(ConfigBase):
-    app_name: ClassVar[str] = "example_app"
+class ApiConfig(BaseModel):
     username: str = Field("guest", description="Username for the service")
     api_key: str = Field(..., description="API key (required)")
     output_dir: Path = Field("./output", description="Output directory")
@@ -22,19 +18,21 @@ class MyConfig(ConfigBase):
     )
     timeout: int | None = Field(30, description="Request timeout in seconds")
 
-app = Typer(name="my_app", help="Example CLI using Pydantic + TOML + Typer.")
+
+app = typer.Typer(
+    name="example_app_api",
+    help="Example CLI using Pydantic + Typer.",
+)
+
 
 @app.command()
 def hello() -> None:
     """Simple command to verify we can read the config."""
-    config = MyConfig.load()
+    config = get_config()
     typer.echo(f"Hello, {config.username}!")
     typer.echo(f"Your API key: {config.api_key}")
     typer.echo(f"Timeout: {config.timeout} seconds")
 
 
 if __name__ == "__main__":
-    ConfigApp(
-        app=app,
-        config_cls=MyConfig,
-    )()
+    start_config_app(app=app, config_cls=ApiConfig)
