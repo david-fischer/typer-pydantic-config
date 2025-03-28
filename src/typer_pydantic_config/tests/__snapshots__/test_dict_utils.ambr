@@ -1,0 +1,41 @@
+# serializer version: 1
+# name: test_flatten
+  dict({
+    'active': True,
+    'user.location.city': 'Wonderland',
+    'user.location.zip': '12345',
+    'user.name': 'Alice',
+  })
+# ---
+# name: test_unflatten
+  dict({
+    'test': dict({
+      'ab': 'zsdf',
+      'xyz': 'asdlfkj.',
+    }),
+    'xyz': dict({
+      'test': '.asldfkj',
+    }),
+  })
+# ---
+# name: test_unflatten_deep
+  dict({
+    'a': dict({
+      's': dict({
+        'df': dict({
+          'a': dict({
+            'gasdfg': dict({
+              'a': dict({
+                's': dict({
+                  'd': dict({
+                    'f': '2',
+                  }),
+                }),
+              }),
+            }),
+          }),
+        }),
+      }),
+    }),
+  })
+# ---
