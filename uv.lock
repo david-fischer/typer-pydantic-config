@@ -289,6 +289,7 @@ name = "upload-audiobooks"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "platformdirs" },
     { name = "pydantic" },
     { name = "toml" },
     { name = "typer" },
@@ -302,6 +303,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "platformdirs", specifier = ">=4.3.7" },
     { name = "pydantic", specifier = ">=2.10.6" },
     { name = "toml", specifier = ">=0.10.2" },
     { name = "typer", specifier = ">=0.15.1" },

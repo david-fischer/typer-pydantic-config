@@ -39,7 +39,7 @@ class ConfigApp:
         )
 
     def show_config(self) -> None:
-        typer.echo(self.config_cls.config_path.read_text())
+        typer.echo(self.config_cls.config_path().read_text())
 
     def init(self) -> None:
         """Interactively prompt for every field in the config.
@@ -77,7 +77,7 @@ class ConfigApp:
 
         # Save the config
         new_config.save()
-        typer.echo(f"Configuration initialized and saved to {new_config.config_path}")
+        typer.echo(f"Configuration initialized and saved to {new_config.config_path()}")
 
     def __init__(
         self,
@@ -88,7 +88,7 @@ class ConfigApp:
         self.config_cls = config_cls
         self._init_callback(app)
         self._typer_click_object = typer.main.get_command(app)
-        config_click_group = click.Group("config")
+        config_click_group = click.Group("config", help="Interact with config ( set | init | show).")
         config_click_group.add_command(name="set", cmd=self.create_set_command())
         config_click_group.command("init")(self.init)
         config_click_group.command("show")(self.show_config)
@@ -99,7 +99,7 @@ class ConfigApp:
         def main(ctx: typer.Context) -> None:
             if ctx.invoked_subcommand is not None:
                 return None
-            if not self.config_cls.config_path.exists() and typer.confirm(
+            if not self.config_cls.config_path().exists() and typer.confirm(
                 "It seems that the config file does not exist. "
                 "Do you want to create it?"
             ):

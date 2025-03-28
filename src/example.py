@@ -4,13 +4,14 @@ from typing import ClassVar
 
 import typer
 from pydantic import Field
+from typer import Typer
 
 from config_app import ConfigApp
 from config_base import ConfigBase
 
 
 class MyConfig(ConfigBase):
-    config_path: ClassVar[Path] = Path(__file__).resolve().parent / "config.toml"
+    app_name: ClassVar[str] = "example_app"
     username: str = Field("guest", description="Username for the service")
     api_key: str = Field(..., description="API key (required)")
     output_dir: Path = Field("./output", description="Output directory")
@@ -21,14 +22,9 @@ class MyConfig(ConfigBase):
     )
     timeout: int | None = Field(30, description="Request timeout in seconds")
 
+app = Typer(name="my_app", help="Example CLI using Pydantic + TOML + Typer.")
 
-config_app = ConfigApp(
-    app=typer.Typer(name="my_app", help="Example CLI using Pydantic + TOML + Typer."),
-    config_cls=MyConfig,
-)
-
-
-@config_app.app.command()
+@app.command()
 def hello() -> None:
     """Simple command to verify we can read the config."""
     config = MyConfig.load()
@@ -38,4 +34,7 @@ def hello() -> None:
 
 
 if __name__ == "__main__":
-    config_app()
+    ConfigApp(
+        app=app,
+        config_cls=MyConfig,
+    )()

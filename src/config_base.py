@@ -2,21 +2,27 @@ from pathlib import Path
 from typing import Any, ClassVar, Self
 
 import toml
+from platformdirs import user_config_path
 from pydantic import BaseModel
 
 
 class ConfigBase(BaseModel):
-    config_path: ClassVar[Path]
+    app_name: ClassVar[str]
+    app_version: ClassVar[str | None] = None
+
+    @classmethod
+    def config_path(cls) -> Path:
+        return user_config_path(appname=cls.app_name, version=cls.app_version)
 
     @classmethod
     def load(cls) -> Self:
         """Load config from TOML or return defaults if file does not exist."""
-        data = toml.load(cls.config_path)
+        data = toml.load(cls.config_path())
         return cls(**data)
 
     def save(self) -> None:
         """Persist the config to TOML on disk."""
-        with self.config_path.open("w", encoding="utf-8") as f:
+        with self.config_path().open("w", encoding="utf-8") as f:
             toml.dump(self.model_dump(), f)
 
     @classmethod
