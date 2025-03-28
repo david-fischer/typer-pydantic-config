@@ -6,7 +6,7 @@ from platformdirs import user_config_path
 from pydantic import BaseModel, ValidationError
 from pydantic_core import PydanticUndefined
 
-from .annotation_to_click_type import update_pydantic_model_command
+from .click_utils import update_pydantic_model_command
 from .context import set_config
 from .pydantic_writer import ConfigTomlWriter, PydanticWriter
 
@@ -114,7 +114,7 @@ class ConfigApp[PydanticModel: BaseModel]:
 
         # Construct and validate the new config
         try:
-            new_config = self.config_cls(**input_data)
+            new_config = self.config_cls.model_validate(input_data)
         except ValidationError as e:
             typer.echo("Invalid input. Please correct the errors and try again.")
             typer.echo(str(e))
