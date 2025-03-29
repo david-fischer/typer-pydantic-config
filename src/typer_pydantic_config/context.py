@@ -1,7 +1,7 @@
 import click
 from pydantic import BaseModel
 
-CONTEXT_CONFIG_KEY = "context"
+from .constants import CONTEXT_CONFIG_KEY
 
 
 def _get_config(ctx: click.Context) -> BaseModel:

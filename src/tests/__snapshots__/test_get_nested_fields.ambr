@@ -1,0 +1,27 @@
+# serializer version: 1
+# name: test_nested_pydantic_model
+  dict({
+    'inner': dict({
+      'name': FieldInfo(annotation=str, required=True),
+      'value': FieldInfo(annotation=int, required=True),
+    }),
+    'some_bool': FieldInfo(annotation=bool, required=True),
+    'value': FieldInfo(annotation=int, required=True),
+  })
+# ---
+# name: test_nested_pydantic_model_flattened
+  dict({
+    'inner.name': FieldInfo(annotation=str, required=True),
+    'inner.value': FieldInfo(annotation=int, required=True),
+    'some_bool': FieldInfo(annotation=bool, required=True),
+    'value': FieldInfo(annotation=int, required=True),
+  })
+# ---
+# name: test_nested_pydantic_model_flattened_
+  list([
+    <Option some_bool>,
+    <Option value>,
+    <Option inner__SEP__value>,
+    <Option inner__SEP__name>,
+  ])
+# ---

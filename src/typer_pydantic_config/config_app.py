@@ -6,8 +6,9 @@ from platformdirs import user_config_path
 from pydantic import BaseModel, ValidationError
 from pydantic_core import PydanticUndefined
 
-from .click_utils import update_pydantic_model_command
+from .click_utils import get_flat_fields, update_pydantic_model_command
 from .context import set_config
+from .dict_utils import unflatten_dict
 from .pydantic_writer import ConfigTomlWriter, PydanticWriter
 
 
@@ -96,7 +97,7 @@ class ConfigApp[PydanticModel: BaseModel]:
 
         # We'll collect the user inputs in a dict
         input_data = {}
-        for field_name, field_model in self.config_cls.model_fields.items():
+        for field_name, field_model in get_flat_fields(self.config_cls).items():
             # Prompt the user (use default if it exists; otherwise they'll see no default)
             msg = (
                 f"[{field_name}]"
@@ -114,7 +115,7 @@ class ConfigApp[PydanticModel: BaseModel]:
 
         # Construct and validate the new config
         try:
-            new_config = self.config_cls.model_validate(input_data)
+            new_config = self.config_cls.model_validate(unflatten_dict(input_data))
         except ValidationError as e:
             typer.echo("Invalid input. Please correct the errors and try again.")
             typer.echo(str(e))

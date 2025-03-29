@@ -5,6 +5,9 @@ from typing import Any
 import toml
 from pydantic import BaseModel
 
+from .constants import FIELD_SEP
+from .dict_utils import unflatten_dict
+
 
 class PydanticWriter[PydanticModel: BaseModel](ABC):
     path: Path
@@ -28,6 +31,13 @@ class PydanticWriter[PydanticModel: BaseModel](ABC):
         updated_config = config.model_copy(update=update)
         self.save(updated_config)
         return updated_config
+
+    def update_from_flat(self, **update: Any) -> PydanticModel:
+        """Update and save from flat."""
+        update = unflatten_dict(
+            {key: val for key, val in update.items() if val}, sep=FIELD_SEP
+        )
+        return self.update_on_disk(**update)
 
     @abstractmethod
     def load(self) -> PydanticModel: ...
