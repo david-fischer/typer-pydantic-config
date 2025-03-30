@@ -2,8 +2,9 @@
 name = "typer-pydantic-config"
 version = "0.1.0"
 description = "Use pydantic to manage persistant config for your Typer Apps!"
+authors = [{ name="David Fischer", email="d.fischer.git@posteo.de"}]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "platformdirs>=4.3.7",
     "pydantic>=2.10.6",
