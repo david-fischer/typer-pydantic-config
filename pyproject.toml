@@ -1,7 +1,7 @@
 [project]
 name = "typer-pydantic-config"
 version = "0.1.0"
-description = "Use pydantic to manage persistant config for your Typer Apps!"
+description = "Use pydantic to manage persistant config for your Typer apps!"
 authors = [{ name="David Fischer", email="d.fischer.git@posteo.de"}]
 readme = "README.md"
 requires-python = ">=3.12"
@@ -90,12 +90,9 @@ extend-select=[
 ignore = [
     "ANN401",       # Using Any-type should be allowed
     "ISC001",       # Incompatible with formatter
-    "D100",         # Module Structure of Django is more or less self-explanatory.
-    "D105",         # No docstrings for magic methods necessary.
-    "D107",         # No docstrings for __init__.py methods necessary.
-    "D",
+    "D",            # No docstrings required for this project.
+    "TD003",        # No links for TODOs.
     "DOC201",       # No mandatory Returns section in docstrings.
-    "TD003",
 ]
 
 [tool.ruff]
@@ -113,3 +110,6 @@ convention = "google"
 
 [tool.pytest.ini_options]
 pythonpath="src"
+
+[tool.uv]
+package = true
