@@ -18,6 +18,7 @@ class PydanticWriter[PydanticModel: BaseModel](ABC):
         self.pydantic_cls = pydantic_cls
 
     def delete(self) -> None:
+        """Delete the current config file."""
         self.path.unlink()
 
     def exists(self) -> bool:

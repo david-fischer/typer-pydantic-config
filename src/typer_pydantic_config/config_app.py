@@ -60,7 +60,7 @@ class ConfigApp[PydanticModel: BaseModel]:
         """Return click object with some standard functionality to init / update / show config."""
         config_click_group = click.Group(
             "config",
-            help="Interact with config: ( set | init | show | path).",
+            help="Interact with config: ( set | init | show | path | delete).",
         )
         config_click_group.add_command(
             name="set",
@@ -71,8 +71,15 @@ class ConfigApp[PydanticModel: BaseModel]:
         config_click_group.command("init")(self.config_init)
         config_click_group.command("show")(self.config_show_values)
         config_click_group.command("path")(self.config_show_path)
-        config_click_group.command("delete")(self.config_writer.delete)
+        config_click_group.command("delete")(self.delete_config_file)
         return config_click_group
+
+    def delete_config_file(self) -> None:
+        """Delete config file on disk."""
+        typer.confirm(
+            "Do you really want to delete the current config values?", abort=True
+        )
+        self.config_writer.delete()
 
     def config_show_values(self) -> None:
         """Print content of config file."""
