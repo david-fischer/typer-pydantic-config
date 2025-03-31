@@ -4,7 +4,7 @@ from pathlib import Path
 import typer
 from pydantic import BaseModel, Field
 
-from typer_pydantic_config import get_config, start_config_app
+import typer_pydantic_config
 
 
 class ApiCredentials(BaseModel):
@@ -23,8 +23,13 @@ class ApiConfig(BaseModel):
     timeout: int | None = Field(30, description="Request timeout in seconds")
 
 
+def get_config() -> ApiConfig:
+    """This function is only implemented to get the object as the correct type."""
+    return typer_pydantic_config.get_config()
+
+
 app = typer.Typer(
-    name="example_app_api",
+    name="example_app_api",  # Setting the name of the app is required.
     help="Example CLI using Pydantic + Typer.",
 )
 
@@ -32,7 +37,7 @@ app = typer.Typer(
 @app.command()
 def hello() -> None:
     """Simple command to verify we can read the config."""
-    config: ApiConfig = get_config()
+    config = get_config()
     typer.echo(f"Hello, {config.credentials.username}!")
     typer.echo(f"Your API key: {config.credentials.api_key}")
     typer.echo(f"Timeout: {config.timeout} seconds")
@@ -41,4 +46,4 @@ def hello() -> None:
 
 
 if __name__ == "__main__":
-    start_config_app(app=app, config_cls=ApiConfig)
+    typer_pydantic_config.start_config_app(app=app, config_cls=ApiConfig)

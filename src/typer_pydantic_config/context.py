@@ -13,5 +13,5 @@ def set_config(ctx: click.Context, config: BaseModel) -> None:
     ctx.obj[CONTEXT_CONFIG_KEY] = config
 
 
-def get_config() -> BaseModel:
+def get_config[PydanticModel: BaseModel]() -> PydanticModel:
     return _get_config(click.get_current_context())
