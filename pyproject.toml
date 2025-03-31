@@ -1,16 +1,26 @@
 [project]
 name = "typer-pydantic-config"
 version = "0.1.0"
-description = "Use pydantic to manage persistant config for your Typer apps!"
+description = "Use pydantic to manage persistent config for your Typer apps!"
 authors = [{ name="David Fischer", email="d.fischer.git@posteo.de"}]
 readme = "README.md"
+license = "MIT"
+license_files = ["LICEN[CS]E*"]
 requires-python = ">=3.12"
+keywords = []
+classifiers = []
 dependencies = [
     "platformdirs>=4.3.7",
     "pydantic>=2.10.6",
     "toml>=0.10.2",
     "typer>=0.15.1",
 ]
+
+[project.urls]
+Homepage = "https://github.com/david-fischer/typer-pydantic-config"
+Repository = "https://github.com/david-fischer/typer-pydantic-config.git"
+Issues = "https://github.com/david-fischer/typer-pydantic-config/issues"
+Changelog = "https://github.com/david-fischer/typer-pydantic-config/blob/master/CHANGELOG.md"
 
 [dependency-groups]
 dev = [
