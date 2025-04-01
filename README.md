@@ -27,7 +27,7 @@ Commands:
 ```
 
 
-##  Current shortcomings 
+## ⚠ Current shortcomings ⚠
  * Supports only the following basic types:
    * Pydantic model
    * int
@@ -35,4 +35,7 @@ Commands:
    * bool
    * str
    * datetime
-   * Path
+   * Path 
+ * usage of typer/clicks context in `get_config` could pose problems when package user modifies context
+ * setting of `app = typer.Typer(name="<some_unique_name>")` is required
+ * if there is already another application with the name installed on the system, this could lead to problems
