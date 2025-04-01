@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: release-please--branches--main--components--typer-pydantic-config
-      - name:
+      - name: Update uv.lock in release PR
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name  "GitHub Actions"
