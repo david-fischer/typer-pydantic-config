@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.1](https://github.com/david-fischer/typer-pydantic-config/compare/v0.3.0...v0.3.1) (2025-04-01)
+
+
+### Bug Fixes
+
+* **ci:** checkout release branch ([c35c407](https://github.com/david-fischer/typer-pydantic-config/commit/c35c407e893da74a667c3635c142e0251da97189))
+* **ci:** reset version on main ([894389a](https://github.com/david-fischer/typer-pydantic-config/commit/894389a9062f30b045f3a78d71888402a93b0d4b))
+* **ci:** set email & user ([9f1cb5f](https://github.com/david-fischer/typer-pydantic-config/commit/9f1cb5fb729dedd40c72153db69a02f12ae7bea5))
+* **ci:** sync after checkout ([2381c73](https://github.com/david-fischer/typer-pydantic-config/commit/2381c7308d91ec0e40f7492e71d9379d93cf33b2))
+* **ci:** use checkout action ([637a98d](https://github.com/david-fischer/typer-pydantic-config/commit/637a98de9f241b3e76bdb2d2e3c2166bce861935))
+* update version in uv.lock in release PR ([f97d81d](https://github.com/david-fischer/typer-pydantic-config/commit/f97d81d4bd601500ee38d6c1f46ae0a65ab4243b))
+
 ## [0.3.0](https://github.com/david-fischer/typer-pydantic-config/compare/v0.2.0...v0.3.0) (2025-04-01)
 
 
