@@ -17,6 +17,10 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           release-type: python
+      - uses: actions/checkout@v3
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
+        with:
+          ref: release-please--branches--main
       - name: Install uv
         if: ${{ steps.release.outputs.prs_created == 'true' }}
         uses: astral-sh/setup-uv@v5
@@ -24,10 +28,6 @@ jobs:
           enable-cache: true
           cache-dependency-glob: uv.lock
           pyproject-file: pyproject.toml
-      - uses: actions/checkout@v3
-        if: ${{ steps.release.outputs.prs_created == 'true' }}
-        with:
-          ref: release-please--branches--main
       - name: Update uv.lock in release PR
         if: ${{ steps.release.outputs.prs_created == 'true' }}
         run: |
