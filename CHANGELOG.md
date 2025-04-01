@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.2](https://github.com/david-fischer/typer-pydantic-config/compare/v0.3.1...v0.3.2) (2025-04-01)
+
+
+### Bug Fixes
+
+* **ci:** Only update lockfile if release was created ([a6478dd](https://github.com/david-fischer/typer-pydantic-config/commit/a6478dd2a0729b9448c3d07cbf04dd7481bf88c7))
+* **ci:** parameter name release -&gt; releases ([4f2fbb5](https://github.com/david-fischer/typer-pydantic-config/commit/4f2fbb5e21f5d20996039f5fb752ec34af6f1963))
+* **ci:** parameter name releases_created -&gt; prs_created ([2330c65](https://github.com/david-fischer/typer-pydantic-config/commit/2330c65a298c89d74800a8cf4cd00c2db24beca1))
+
 ## [0.3.1](https://github.com/david-fischer/typer-pydantic-config/compare/v0.3.0...v0.3.1) (2025-04-01)
 
 
