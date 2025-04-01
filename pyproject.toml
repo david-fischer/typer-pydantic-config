@@ -143,3 +143,5 @@ convention = "google"
 [tool.pytest.ini_options]
 pythonpath="src"
 
+[tool.uv]
+version = ">=0.6.10"
