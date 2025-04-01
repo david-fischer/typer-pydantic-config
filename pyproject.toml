@@ -1,7 +1,7 @@
 [project]
 name = "typer-pydantic-config"
-version = "0.1.0"
-description = "Use pydantic to manage persistent config for your Typer apps!"
+version = "0.2.0"
+description = "Use pydantic to manage persistent config for your Typer CLI apps!"
 authors = [{ name="David Fischer", email="d.fischer.git@posteo.de"}]
 readme = "README.md"
 license = "MIT"
@@ -39,6 +39,14 @@ build-backend = "hatchling.build"
 exclude = [
     "src/examples",
     "src/tests"
+]
+include = [
+    "src/**",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+    "uv.lock",
+    "pyproject.toml",
 ]
 
 [tool.hatch.build.targets.wheel]

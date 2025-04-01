@@ -61,4 +61,4 @@ class ConfigTomlWriter[PydanticModel: BaseModel](PydanticWriter[PydanticModel]):
         """Persist the config to TOML on disk."""
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with self.path.open("w", encoding="utf-8") as f:
-            toml.dump(config.model_dump(), f)
+            toml.dump(config.model_dump(mode="json"), f)
