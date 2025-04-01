@@ -1,6 +1,10 @@
 # Typer Pydantic Config
 
-This package helps you quickly build python CLI applications with a persistent config.
+This package helps you quickly build python CLI applications with a persistent config using [typer](https://typer.tiangolo.com/) & [pydantic](https://docs.pydantic.dev/latest/).
+
+![minimal_example.gif](assets/minimal_example.gif)
+
+See [minimal.py](src/examples/minimal.py) and [example.py](src/examples/example.py) for two simple examples.
 
 1. Implement config object as [pydantic](https://docs.pydantic.dev/latest/) class
 2. Use `get_config` where every you need the current values
