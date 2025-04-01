@@ -1,0 +1,19 @@
+---
+name: Release Please
+on:
+  push:
+    branches: [main]
+    paths: [src/**, .github/workflows]
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Release Please
+        uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: python
+          package-name: typer-pydantic-config
+          bump-minor-pre-major: true
+          version-file: pyproject.toml
+          changelog-path: CHANGELOG.md
