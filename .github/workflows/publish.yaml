@@ -16,7 +16,6 @@ jobs:
           enable-cache: true
           cache-dependency-glob: uv.lock
           pyproject-file: pyproject.toml
-          python-version:
       - name: Install the project
         run: uv sync --all-extras --dev
       - name: Run tests
