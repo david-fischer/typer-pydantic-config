@@ -22,18 +22,18 @@ jobs:
           version-file: pyproject.toml
           changelog-path: CHANGELOG.md
       - name: Install uv
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.prs_created }}
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
           cache-dependency-glob: uv.lock
           pyproject-file: pyproject.toml
       - uses: actions/checkout@v3
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.prs_created }}
         with:
           ref: release-please--branches--main--components--typer-pydantic-config
       - name: Update uv.lock in release PR
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.prs_created }}
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name  "GitHub Actions"
