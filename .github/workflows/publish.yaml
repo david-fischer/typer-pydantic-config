@@ -27,5 +27,4 @@ jobs:
       - name: Publish package to PyPI
         run: uv publish
         env:
-          PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
