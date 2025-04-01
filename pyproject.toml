@@ -7,7 +7,7 @@ readme = "README.md"
 license = "MIT"
 license_files = ["LICEN[CS]E*"]
 requires-python = ">=3.12"
-keywords = []
+keywords = ["python", "typer", "pydantic", "config", "CLI"]
 classifiers = []
 dependencies = [
     "platformdirs>=4.3.7",
