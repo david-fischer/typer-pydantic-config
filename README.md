@@ -50,9 +50,9 @@ Commands:
    * datetime
    * Path
    * another subclass of pydantic's `BaseModel`
- * Config values are available as `ctx.obj["config"]` (see [click docs: Context](https://click.palletsprojects.com/en/stable/api/#click.Context).
+ * Config values are available as `ctx.obj["config"]` (see [click docs: Context](https://click.palletsprojects.com/en/stable/api/#click.Context)).
    * This is only available when one of the endpoint functions is called.
-   * Do not overwrite the context.obj (at least not the `"config"` key.
+   * Do not overwrite the `ctx.obj` (at least not the `"config"` key).
  * Unique app name required:
    * Set a unique name: `app = typer.Typer(name="<some_unique_name>")`
    * This name is used by [platformdirs](https://github.com/tox-dev/platformdirs) to construct the path of the config.
