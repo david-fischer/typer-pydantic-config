@@ -29,11 +29,13 @@ jobs:
           pyproject-file: pyproject.toml
       - name: update lock file
         run: uv sync
+      - uses: actions/checkout@v3
+        with:
+          ref: release-please--branches--main--components--typer-pydantic-config
       - name:
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name  "GitHub Actions"
-          git checkout release-please--branches--main--components--typer-pydantic-config
           git add uv.lock
           git commit -m "chore: update uv.lock version"
           git push
