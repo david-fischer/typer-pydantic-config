@@ -1,6 +1,6 @@
 [project]
 name = "typer-pydantic-config"
-version = "0.1.0"
+version = "0.2.0"
 description = "Use pydantic to manage persistent config for your Typer CLI apps!"
 authors = [{ name="David Fischer", email="d.fischer.git@posteo.de"}]
 readme = "README.md"
