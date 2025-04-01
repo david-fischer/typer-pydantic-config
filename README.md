@@ -23,9 +23,10 @@ On the first invocation, prompts the user to set all values in the config file.
 
 Your app now has an additional `config` command with the following signature:
 ```text
+$ python example.py config --help
 Usage: example.py config [OPTIONS] COMMAND [ARGS]...
 
-  Interact with config: ( set | init | show | path | delete).
+  Interact with config: (delete | init | path | set | show).
 
 Options:
   --help  Show this message and exit.
