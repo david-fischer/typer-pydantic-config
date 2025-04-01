@@ -1,5 +1,8 @@
 ---
 name: Release Please
+permissions:
+  contents: write
+  pull-requests: write
 on:
   push:
     branches: [main]
@@ -12,6 +15,7 @@ jobs:
       - name: Release Please
         uses: google-github-actions/release-please-action@v3
         with:
+          token: ${{ secrets.GH_TOKEN }}
           release-type: python
           package-name: typer-pydantic-config
           bump-minor-pre-major: true
