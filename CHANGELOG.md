@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/david-fischer/typer-pydantic-config/compare/v0.1.0...v0.2.0) (2025-04-01)
+
+
+### Features
+
+* add keywords to package ([d7a561c](https://github.com/david-fischer/typer-pydantic-config/commit/d7a561cf2c2868dbccb6f5839d977c9759c4d175))
+
 ## 0.1.0 (2025-04-01)
 
 
