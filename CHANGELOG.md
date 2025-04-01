@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.3](https://github.com/david-fischer/typer-pydantic-config/compare/v0.3.2...v0.3.3) (2025-04-01)
+
+
+### Bug Fixes
+
+* **ci:** first checkout repo, then install uv ([aa220ae](https://github.com/david-fischer/typer-pydantic-config/commit/aa220ae6f3e8ef142f8528144356296bda1d7e24))
+* **ci:** set uv version ([d7b6a57](https://github.com/david-fischer/typer-pydantic-config/commit/d7b6a57c5af5c0ff21ca372e1f9b525b71057ff0))
+* **ci:** update action & set uv version ([bb8c6f1](https://github.com/david-fischer/typer-pydantic-config/commit/bb8c6f1c3f1384d86a097780a8a48d130c46ad3b))
+* **ci:** update examples ([e054d49](https://github.com/david-fischer/typer-pydantic-config/commit/e054d49abc6453a16531c1bf5628a9cdb75848a0))
+
 ## [0.3.2](https://github.com/david-fischer/typer-pydantic-config/compare/v0.3.1...v0.3.2) (2025-04-01)
 
 
