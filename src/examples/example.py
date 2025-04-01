@@ -5,15 +5,11 @@ import typer
 from pydantic import BaseModel, Field
 
 import typer_pydantic_config
+from minimal import ApiConfig
 
 
-class ApiCredentials(BaseModel):
-    username: str = Field("guest", description="Username for the service")
-    api_key: str = Field(..., description="API key (required)")
-
-
-class ApiConfig(BaseModel):
-    credentials: ApiCredentials
+class AppConfig(BaseModel):
+    credentials: ApiConfig
     output_dir: Path = Field("./output", description="Output directory")
     init_timestamp: datetime.datetime = Field(
         default_factory=lambda: datetime.datetime.now(tz=datetime.UTC),
@@ -23,8 +19,8 @@ class ApiConfig(BaseModel):
     timeout: int | None = Field(30, description="Request timeout in seconds")
 
 
-def get_config() -> ApiConfig:
-    """This function is only implemented to get the object as the correct type."""
+def get_config() -> AppConfig:
+    """This function is only implemented to have a proper type hint."""
     return typer_pydantic_config.get_config()
 
 
@@ -46,4 +42,4 @@ def hello() -> None:
 
 
 if __name__ == "__main__":
-    typer_pydantic_config.start_config_app(app=app, config_cls=ApiConfig)
+    typer_pydantic_config.start_config_app(app=app, config_cls=AppConfig)
