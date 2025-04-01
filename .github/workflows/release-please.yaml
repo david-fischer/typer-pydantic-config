@@ -6,7 +6,7 @@ permissions:
 on:
   push:
     branches: [main]
-    paths: [src/**, .github/workflows/**, pyproject.toml, LICENSE]
+    paths: [src/**, .github/workflows/**, pyproject.toml]
 jobs:
   release-please:
     runs-on: ubuntu-latest
