@@ -60,7 +60,7 @@ class ConfigApp[PydanticModel: BaseModel]:
         """Return click object with some standard functionality to init / update / show config."""
         config_click_group = click.Group(
             "config",
-            help="Interact with config: ( set | init | show | path | delete).",
+            help="Interact with config: (delete | init | path | set | show).",
         )
         config_click_group.add_command(
             name="set",
