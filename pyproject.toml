@@ -144,4 +144,4 @@ convention = "google"
 pythonpath="src"
 
 [tool.uv]
-version = ">=0.6.10"
+required-version = ">=0.6.0"
