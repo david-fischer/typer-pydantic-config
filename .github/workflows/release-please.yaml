@@ -6,7 +6,7 @@ permissions:
 on:
   push:
     branches: [main]
-    paths: [src/**, .github/workflows/**, pyproject.toml, uv.lock]
+    paths: [src/**, .github/workflows/**, pyproject.toml, uv.lock, README.md]
 jobs:
   release-please:
     runs-on: ubuntu-latest
