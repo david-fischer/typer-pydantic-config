@@ -77,7 +77,8 @@ class ConfigApp[PydanticModel: BaseModel]:
     def delete_config_file(self) -> None:
         """Delete config file on disk."""
         typer.confirm(
-            "Do you really want to delete the current config values?", abort=True
+            f"Do you really want to delete the current config at {self.config_writer.path}?",
+            abort=True,
         )
         self.config_writer.delete()
 
