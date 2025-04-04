@@ -10,3 +10,4 @@ config.toml
 
 # Virtual environments
 .venv
+*.cast
