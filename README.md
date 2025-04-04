@@ -43,6 +43,7 @@ Commands:
 ## ⚠ Current Limitations ⚠
  * The package is still an early draft and not yet thoroughly tested
  * Does not support `default_factory` yet
+ * Does not support optional fields yet
  * The following types are supported as attributes of your config class:
    * int
    * float
