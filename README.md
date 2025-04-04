@@ -12,7 +12,7 @@ Install it from [pypi](https://pypi.org/project/typer-pydantic-config/) using yo
 uv pip install typer-pydantic-config
 ```
 
-## Usage 
+## Usage
 
 1. Implement config object as [pydantic](https://docs.pydantic.dev/latest/) class
 2. Use `get_config` where every you need the config object
@@ -42,6 +42,7 @@ Commands:
 
 ## ⚠ Current Limitations ⚠
  * The package is still an early draft and not yet thoroughly tested
+ * Does not support `default_factory` yet
  * The following types are supported as attributes of your config class:
    * int
    * float
