@@ -76,15 +76,22 @@ class ConfigApp[PydanticModel: BaseModel]:
 
     def delete_config_file(self) -> None:
         """Delete config file on disk."""
+        if not self.config_writer.exists():
+            return typer.echo(
+                f"Config file at {self.config_writer.path} does not exist."
+            )
         typer.confirm(
             f"Do you really want to delete the current config at {self.config_writer.path}?",
             abort=True,
         )
-        self.config_writer.delete()
+        return self.config_writer.delete()
 
     def config_show_values(self) -> None:
         """Print content of config file."""
-        typer.echo(self.config_writer.get_str_repr())
+        if self.config_writer.exists():
+            typer.echo(self.config_writer.get_str_repr())
+        else:
+            typer.echo(f"Config file at {self.config_writer.path} does not exist.")
 
     def config_show_path(self) -> None:
         """Print config path."""
