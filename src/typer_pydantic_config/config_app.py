@@ -1,14 +1,14 @@
+from collections.abc import Callable
 from pathlib import Path
 
 import click
 import typer
 from platformdirs import user_config_path
-from pydantic import BaseModel, ValidationError
-from pydantic_core import PydanticUndefined
+from pydantic import BaseModel
 
-from .click_utils import get_flat_fields, update_pydantic_model_command
+from .click_utils import update_pydantic_model_command
 from .context import set_config
-from .dict_utils import unflatten_dict
+from .prompt_utils import init_from_prompt
 from .pydantic_writer import ConfigTomlWriter, PydanticWriter
 
 
@@ -17,15 +17,18 @@ class ConfigApp[PydanticModel: BaseModel]:
     _typer_click_object: click.Command
     config_cls: type[PydanticModel]
     config_writer: PydanticWriter
+    init_config_function: Callable[[], PydanticModel]
 
     def __init__(
         self,
         app: typer.Typer,
         config_cls: type[PydanticModel],
         config_filename: str = "config.toml",
+        init_config_fn: Callable[[], PydanticModel] | None = None,
     ) -> None:
         self.app = app
         self.config_cls = config_cls
+        self.init_config_fn = init_config_fn or (lambda: init_from_prompt(config_cls))
 
         path = user_config_path(appname=app.info.name) / config_filename
         match Path(config_filename).suffix:
@@ -98,45 +101,13 @@ class ConfigApp[PydanticModel: BaseModel]:
         typer.echo(self.config_writer.path)
 
     def config_init(self) -> None:
-        """Interactively prompt for every field in the config.
-
-        Raises:
-        -------
-            typer.Exit: If pydantic validation fails.
-        """
+        """Interactively prompt for every field in the config."""
         if self.config_writer.exists():
             typer.confirm(
                 f"Config ({self.config_writer.path}) already exists. Overwrite?",
                 abort=True,
             )
-
-        # We'll collect the user inputs in a dict
-        input_data = {}
-        for field_name, field_model in get_flat_fields(self.config_cls).items():
-            # Prompt the user (use default if it exists; otherwise they'll see no default)
-            msg = (
-                f"[{field_name}]"
-                if field_model.description is None
-                else f"[{field_name}] - {field_model.description}"
-            )
-            if field_model.init is None or field_model.init:
-                user_value = typer.prompt(
-                    text=msg,
-                    default=field_model.default
-                    if field_model.default is not PydanticUndefined
-                    else None,
-                )
-                input_data[field_name] = user_value
-
-        # Construct and validate the new config
-        try:
-            new_config = self.config_cls.model_validate(unflatten_dict(input_data))
-        except ValidationError as e:
-            typer.echo("Invalid input. Please correct the errors and try again.")
-            typer.echo(str(e))
-            raise typer.Exit(1) from e
-
-        # Save the config
+        new_config = self.init_config_fn()
         self.config_writer.save(new_config)
         typer.echo(f"Configuration initialized and saved to {self.config_writer.path}")
 
@@ -144,5 +115,13 @@ class ConfigApp[PydanticModel: BaseModel]:
         return self._typer_click_object()
 
 
-def start_config_app(app: typer.Typer, config_cls: type[BaseModel]) -> None:
-    ConfigApp(app=app, config_cls=config_cls)()
+def start_config_app[PydanticModel: BaseModel](
+    app: typer.Typer,
+    config_cls: type[PydanticModel],
+    init_config_fn: Callable[[], PydanticModel] | None = None,
+) -> None:
+    ConfigApp(
+        app=app,
+        config_cls=config_cls,
+        init_config_fn=init_config_fn,
+    )()

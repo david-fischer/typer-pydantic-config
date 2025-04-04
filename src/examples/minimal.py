@@ -3,13 +3,13 @@ from time import sleep
 import typer
 from pydantic import BaseModel, Field
 
-from typer_pydantic_config import start_config_app, get_config
+from typer_pydantic_config import get_config, start_config_app
 
 
 class ApiConfig(BaseModel):
-    url: str
+    url: str = Field(..., description="The URL of the Endpoint")
     username: str = Field("guest", description="Username for the service")
-    api_key: str = Field(..., description="API key (required)")
+    api_key: str = Field(..., description="API key")
 
 
 app = typer.Typer(
@@ -17,6 +17,7 @@ app = typer.Typer(
     name="minimal_example_app",
     help="Example CLI using Pydantic + Typer.",
 )
+
 
 @app.command()
 def mock_request() -> None:
@@ -26,7 +27,9 @@ def mock_request() -> None:
     with typer.progressbar(range(100), length=100) as progress:
         for _ in progress:
             sleep(0.03)
-    typer.echo(f"Request as user {config.username!r} with key {config.api_key!r} successfull.")
+    typer.echo(
+        f"Request as user {config.username!r} with key {config.api_key!r} successful."
+    )
 
 
 if __name__ == "__main__":
