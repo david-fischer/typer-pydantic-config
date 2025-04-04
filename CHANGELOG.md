@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.0](https://github.com/david-fischer/typer-pydantic-config/compare/v0.3.3...v0.4.0) (2025-04-04)
+
+
+### Features
+
+* add possibility to set custom init method for config object ([ec9bcfe](https://github.com/david-fischer/typer-pydantic-config/commit/ec9bcfe2f4aed52ed6726940398c9bf3ca6e5f3e))
+* improve messages when config does not exist ([247613f](https://github.com/david-fischer/typer-pydantic-config/commit/247613f065dc671fa30c24a3547d98d061ae5e11))
+
 ## [0.3.3](https://github.com/david-fischer/typer-pydantic-config/compare/v0.3.2...v0.3.3) (2025-04-01)
 
 
