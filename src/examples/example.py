@@ -2,10 +2,10 @@ import datetime
 from pathlib import Path
 
 import typer
+from minimal import ApiConfig
 from pydantic import BaseModel, Field
 
 import typer_pydantic_config
-from minimal import ApiConfig
 
 
 class AppConfig(BaseModel):

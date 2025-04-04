@@ -6,7 +6,12 @@ permissions:
 on:
   push:
     branches: [main]
-    paths: [src/**, .github/workflows/**, pyproject.toml, uv.lock, README.md]
+    paths:
+      - src/**
+      - .github/workflows/**
+      - pyproject.toml
+      - uv.lock
+      - README.md
 jobs:
   release-please:
     runs-on: ubuntu-latest
@@ -30,7 +35,7 @@ jobs:
           pyproject-file: pyproject.toml
       - name: Update uv.lock in release PR
         if: ${{ steps.release.outputs.prs_created == 'true' }}
-        run: |
+        run: |-
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name  "GitHub Actions"
           uv sync
