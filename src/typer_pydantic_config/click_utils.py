@@ -1,6 +1,5 @@
 import types
 from collections.abc import Callable
-from itertools import starmap
 from typing import Any, Union, get_args, get_origin
 
 import click
@@ -77,7 +76,8 @@ def update_pydantic_model_command[PydanticModel: BaseModel](
         name="set",
         help="Set one or more config fields via flags.",
         callback=callback,
-        params=list(
-            starmap(model_field_to_click_option, get_flat_fields(pydantic_model))
-        ),
+        params=[
+            model_field_to_click_option(key, value)
+            for key, value in get_flat_fields(pydantic_model).items()
+        ],
     )
