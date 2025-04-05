@@ -52,6 +52,10 @@ include = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/typer_pydantic_config"]
 
+[tool.uv]
+required-version = ">=0.6.0"
+
+
 [tool.ruff.lint]
 preview=true
 extend-select=[
@@ -143,6 +147,3 @@ convention = "google"
 
 [tool.pytest.ini_options]
 pythonpath="src"
-
-[tool.uv]
-required-version = ">=0.6.0"
