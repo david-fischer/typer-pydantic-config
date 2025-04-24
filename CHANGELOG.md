@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/david-fischer/typer-pydantic-config/compare/v0.4.0...v0.5.0) (2025-04-24)
+
+
+### Features
+
+* add possibility to use simple default_factory in config class ([2e425d6](https://github.com/david-fischer/typer-pydantic-config/commit/2e425d64d219e44dfd223a8cc4b21eb9472360b8))
+
 ## [0.4.0](https://github.com/david-fischer/typer-pydantic-config/compare/v0.3.3...v0.4.0) (2025-04-04)
 
 
