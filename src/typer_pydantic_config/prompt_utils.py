@@ -9,6 +9,21 @@ from typer_pydantic_config.click_utils import get_flat_fields
 from typer_pydantic_config.dict_utils import unflatten_dict
 
 
+def get_simple_default(field_info: FieldInfo) -> Any:
+    """
+    Return the default value for a field.
+
+    Raises
+    ------
+        NotImplementedError: If default_factory has arguments.
+    """
+    if field_info.default_factory_takes_validated_data:
+        msg = "Default factories with arguments are not supported in typer-pydantic-config."
+        raise NotImplementedError(msg)
+    default = field_info.get_default(call_default_factory=True)
+    return None if default is PydanticUndefined else default
+
+
 def prompt_for_value(
     field_name: str,
     field_info: FieldInfo,
@@ -18,9 +33,7 @@ def prompt_for_value(
     msg = f"[{field_name}]{description_str}"
     return typer.prompt(
         text=msg,
-        default=field_info.default
-        if field_info.default is not PydanticUndefined
-        else None,
+        default=get_simple_default(field_info),
     )
 
 
